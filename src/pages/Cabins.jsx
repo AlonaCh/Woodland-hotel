@@ -13,6 +13,7 @@ function Cabins() {
     <Row type="horizontal">
       <Heading as="h1">All cabins</Heading>
       <p>TEST</p>
+      <img src='https://snumnqpuzdxzyjzgdsmg.supabase.co/storage/v1/object/public/cabin-images/cabin-01.jpg'/>
     </Row>
   );
 }
