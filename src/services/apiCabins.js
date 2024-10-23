@@ -11,5 +11,5 @@ const { data, error } = await supabase
     throw new Error('Cabins could not be loaded');
   }
 
-  return data;
+  return data; // promise resolves with data
 }
