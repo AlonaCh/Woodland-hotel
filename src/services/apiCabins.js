@@ -13,3 +13,17 @@ const { data, error } = await supabase
 
   return data; // promise resolves with data
 }
+
+//copied from supabase docs
+export async function deleteCabins(id){
+const { data, error } = await supabase //our supabase client
+  .from('cabins')
+  .delete()
+  .eq('id', id);
+
+  if (error) {
+    console.error(error);
+    throw new Error('Cabin could not be deleted');
+  }
+ return data;
+}

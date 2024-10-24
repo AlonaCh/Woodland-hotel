@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import {formatCurrency} from "../../utils/helpers";
 import PropTypes from 'prop-types';
+import { useMutation } from "@tanstack/react-query";
+import { deleteCabins } from "../../services/apiCabins";
 
 
 const TableRow = styled.div`
@@ -44,8 +46,13 @@ const Discount = styled.div`
 
 
 const CabinRow = ({cabin}) => {
+const {id: cabinId, name, image, maxCapacity, regularPrice, discount} = cabin
 
-  const {name, image, maxCapacity, regularPrice, discount} = cabin
+  const {isLoading: isDeleting, mutate} = useMutation({
+    mutationFn: (id) => deleteCabins(id) //callback function, recieve the id then call the deleteCabins function.//mutationFn:deleteCabin
+  })
+
+  
   return (
     <TableRow role='row'>
       <Img src={image}/>
@@ -53,7 +60,7 @@ const CabinRow = ({cabin}) => {
       <div>{maxCapacity} quests</div>
       <Price>{formatCurrency(regularPrice)}</Price>
       <Discount>{formatCurrency(discount)}</Discount>
-      <button>Book</button>
+      <button onClick={()=>mutate(cabinId)} disabled={isDeleting}>Delete</button>
     </TableRow>
   )
 }
