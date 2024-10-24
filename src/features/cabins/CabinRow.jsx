@@ -45,13 +45,13 @@ const Discount = styled.div`
 
 const CabinRow = ({cabin}) => {
 
-  const {name, image, capacity, price, discount} = cabin
+  const {name, image, maxCapacity, regularPrice, discount} = cabin
   return (
     <TableRow role='row'>
       <Img src={image}/>
       <Cabin>{name}</Cabin>
-      <div>{capacity}</div>
-      <Price>{formatCurrency(price)}</Price>
+      <div>{maxCapacity} quests</div>
+      <Price>{formatCurrency(regularPrice)}</Price>
       <Discount>{formatCurrency(discount)}</Discount>
       <button>Book</button>
     </TableRow>
