@@ -44,10 +44,13 @@ const Label = styled.label`
 // `;
 
 function CreateCabinForm() {
-  const {register} = useForm();
+  const {register, handleSubmit} = useForm(); //we recieve these functions from useForm hook. handleSubmit(onSubmit) is an event handler function
 
+  function onSubmit(data){ //data of the field that we regestered
+
+  }
   return (
-    <Form>
+    <Form onSubmit={handleSubmit(onSubmit)}>
       <FormRow>
         <Label htmlFor="name">Cabin name</Label>
         <Input type="text" id="name" {...register('name')}/>
@@ -83,7 +86,7 @@ function CreateCabinForm() {
         <Button variation="secondary" type="reset">
           Cancel
         </Button>
-        <Button>Edit cabin</Button>
+        <Button>Add cabin</Button>
       </FormRow>
     </Form>
   );
