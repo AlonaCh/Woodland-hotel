@@ -57,5 +57,6 @@ module.exports = {
     'react/prop-types': 'off', // Disable prop-types rule if not using
     'react/jsx-uses-react': 'off', // Turn off if using React 17+
     'react/react-in-jsx-scope': 'off', // No need for React in scope with React 17+
+     'no-unused-vars': 'warn',
   },
 };

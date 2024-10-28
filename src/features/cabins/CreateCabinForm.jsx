@@ -47,8 +47,9 @@ function CreateCabinForm() {
   const {register, handleSubmit} = useForm(); //we recieve these functions from useForm hook. handleSubmit(onSubmit) is an event handler function
 
   function onSubmit(data){ //data of the field that we regestered
-
+console.log(data)
   }
+
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <FormRow>

@@ -14,6 +14,19 @@ const { data, error } = await supabase
   return data; // promise resolves with data
 }
 
+export async function createCabin(newCabin){
+
+const { data, error } = await supabase
+  .from('cabins')
+  .insert([newCabin]);
+  
+  if (error) {
+    console.error(error);
+    throw new error('Cabin could not be created');
+  }
+  return data;
+}
+
 //copied from supabase docs
 export async function deleteCabins(id){
 const { data, error } = await supabase //our supabase client
