@@ -31,7 +31,7 @@ const TableHeader = styled.header`
 
 const CabinTable = () => {
   const {isLoading, 
-    data: cabins, 
+    data: cabins, //just react state. whenever new data is fetched, whenever this state updates the component will rerender
     // error
   } = useQuery({
     queryKey: ["cabins"],

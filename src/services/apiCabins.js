@@ -19,10 +19,10 @@ export async function createCabin(newCabin){
 const { data, error } = await supabase
   .from('cabins')
   .insert([newCabin]);
-  
+
   if (error) {
     console.error(error);
-    throw new error('Cabin could not be created');
+    throw new Error('Cabin could not be created');
   }
   return data;
 }
