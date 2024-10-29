@@ -37,7 +37,7 @@ function CreateCabinForm() {
   //use mutate function, isLoading state
   function onSubmit(data) {
     //data of the field that we regestered
-    mutate(data);
+    mutate({...data, image:data.image.at(0)}); //we need to match the name of the field (id)
   }
 
   function onError(errors){
@@ -54,7 +54,10 @@ function CreateCabinForm() {
       </FormRow> */}
 
 <FormRow label='Cabin name' error={errors?.name?.message}>
-   <Input type="text" id="name" {...register("name", {required: 'This field is required'
+   <Input type="text" 
+   id="name"
+   disabled = {isCreating}
+   {...register("name", {required: 'This field is required'
         })} />
 </FormRow>
 
@@ -87,17 +90,19 @@ function CreateCabinForm() {
         />
       </FormRow>
 
-      <FormRow label='Description' error={errors?.name?.message}>
+      <FormRow label='Description' disabled = {isCreating} error={errors?.name?.message}>
         <Textarea
           type="number"
           id="description"
           defaultValue=""
+          disabled = {isCreating}
           {...register("description", {required: 'This field is required'})}
         />
       </FormRow>
 
       <FormRow label="Cabin photo">
-        <FileInput id="image" accept="image/*" />
+        <FileInput id="image" accept="image/*" type='file'
+        {...register("image", {required: 'This field is required'})}/>
       </FormRow>
 
       <FormRow>
