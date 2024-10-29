@@ -37,7 +37,7 @@ function CreateCabinForm() {
   //use mutate function, isLoading state
   function onSubmit(data) {
     //data of the field that we regestered
-    mutate({...data, image:data.image.at(0)}); //we need to match the name of the field (id)
+    mutate({...data, image:data.image[0]}); //we need to match the name of the field (id)
   }
 
   function onError(errors){
