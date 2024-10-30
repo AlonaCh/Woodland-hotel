@@ -20,8 +20,6 @@ export async function createCabin(newCabin){
 
   const imagePath=`${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`
 
-  //https://snumnqpuzdxzyjzgdsmg.supabase.co/storage/v1/object/public/cabin-images/cabin-01.jpg
-
 //1 Create a new cabin
 const { data, error } = await supabase
   .from('cabins')

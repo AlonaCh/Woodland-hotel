@@ -13,17 +13,8 @@ import FormRow from "../../ui/FormRow";
 
 
 
-function CreateCabinForm({cabinToEdit = {}}) {
-  const {id: editId, ...editValues} = cabinToEdit; // extracts the id from the cabinToEdit object (if it exists) and assigns it to editId
-  // All other properties are grouped into editValues, which might include properties like name, price, description, etc., but without the id.
-  
-  //if we edit
-  const isEditSession = Boolean(editId); //if editId is true, then isEditSession is true
-
-  const { register, handleSubmit, reset, getValues, formState } = useForm({
-    defaultValues: isEditSession ? editValues : {},
-  }
-  ); //we recieve these functions from useForm hook. handleSubmit(onSubmit) is an event handler function
+function CreateCabinForm() {
+  const { register, handleSubmit, reset, getValues, formState } = useForm(); //we recieve these functions from useForm hook. handleSubmit(onSubmit) is an event handler function
   const { errors } = formState;
 
   //in case of mutation we want to invalidate the cabins query, for cabinTable component refetch cabins data
@@ -119,9 +110,7 @@ function CreateCabinForm({cabinToEdit = {}}) {
         <Button variation="secondary" type="reset">
           Cancel
         </Button>
-        <Button disabled={isCreating}>
-         {isEditSession ? 'Edit cabin' : 'Create cabin'} 
-          </Button>
+        <Button disabled={isCreating}>Add cabin</Button>
       </FormRow>
     </Form>
   );

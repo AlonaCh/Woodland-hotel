@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteCabins } from "../../services/apiCabins";
 import toast from "react-hot-toast";
+import CreateCabinForm from "./CreateCabinForm";
+import { useState } from "react";
 
 
 const TableRow = styled.div`
@@ -47,6 +49,8 @@ const Discount = styled.div`
 
 
 const CabinRow = ({cabin}) => {
+  const [showForm, setShowForm] = useState(false)
+
 const {id: cabinId, name, image, maxCapacity, regularPrice, discount} = cabin
 
 const queryClient = useQueryClient();
@@ -64,16 +68,21 @@ const queryClient = useQueryClient();
 
   
   return (
+    <>
     <TableRow role='row'>
       <Img src={image}/>
       <Cabin>{name}</Cabin>
       <div>{maxCapacity} quests</div>
       <Price>{formatCurrency(regularPrice)}</Price>
       <Discount>{formatCurrency(discount)}</Discount>
+      <div>
+      <button onClick={()=>setShowForm((showForm) => !showForm)}>Edit</button>
       <button onClick={()=>mutate(cabinId)} disabled={isDeleting}>Delete</button>
+      </div>
     </TableRow>
-  )
-}
+          {showForm && <CreateCabinForm cabinToEdit={cabin}/>}
+          </>
+  )}
 // Add prop types validation
 CabinRow.propTypes = {
   cabin: PropTypes.shape({
