@@ -16,7 +16,9 @@ const { data, error } = await supabase
 }
 
 export async function createEditCabin(newCabin, id){ //id of a cabin that is being edeted
-  const imageName =`${Math.random()}-${newCabin.image.name}`.replaceAll("/", "");
+  const hasImagePath = newCabin.image.startsWith(supabase); //check if the image is already uploaded
+
+  const imageName = hasImagePath ? newCabin.image : `${Math.random()}-${newCabin.image.name}`.replaceAll("/", "");
 
   const imagePath=`${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`
 
@@ -32,10 +34,7 @@ if (id)
   .eq('id', id) //we need to specify the column that we want to update. id is eq to the id we pass in
   .select()
 
-const { data, error } = await query .select().single()
-
-  .from('cabins')
-  .insert([{...newCabin, image: imagePath}]) //indicate image path to the image in the bucket
+const { data, error } = await query.select().single(); //we want to get the data back
  
 
   if (error) {
