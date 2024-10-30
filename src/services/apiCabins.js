@@ -15,15 +15,28 @@ const { data, error } = await supabase
   return data; // promise resolves with data
 }
 
-export async function createCabin(newCabin){
+export async function createEditCabin(newCabin, id){ //id of a cabin that is being edeted
   const imageName =`${Math.random()}-${newCabin.image.name}`.replaceAll("/", "");
 
   const imagePath=`${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`
 
-//1 Create a new cabin
-const { data, error } = await supabase
+//1 Create/edit a new cabin
+let query = supabase.from('cabins');
+
+//A) Create
+if(!id) query.insert([{...newCabin, image: imagePath}]) //indicate image path to the image in the bucket
+
+//B) Edit
+if (id) 
+  query.update({...newCabin, image: imagePath})
+  .eq('id', id) //we need to specify the column that we want to update. id is eq to the id we pass in
+  .select()
+
+const { data, error } = await query .select().single()
+
   .from('cabins')
-  .insert([{...newCabin, image: imagePath}]); //indicate image path to the image in the bucket
+  .insert([{...newCabin, image: imagePath}]) //indicate image path to the image in the bucket
+ 
 
   if (error) {
     console.error(error);
