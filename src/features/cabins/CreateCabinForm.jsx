@@ -10,6 +10,7 @@ import { createEditCabin } from "../../services/apiCabins";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import FormRow from "../../ui/FormRow";
+import { is } from "date-fns/locale";
 
 
 
@@ -30,7 +31,7 @@ function CreateCabinForm({cabinToEdit = {}}) {
   const queryClient = useQueryClient();
 
   //mutate func if we want to mutate something
-  const { mutate, isLoading: isCreating } = useMutation({
+  const { mutate: createCabin, isLoading: isCreating } = useMutation({
     mutationFn: createEditCabin,
     onSuccess: () => {
       toast.success("Cabin created successfully");
@@ -42,11 +43,27 @@ function CreateCabinForm({cabinToEdit = {}}) {
     onError: (err) => toast.error(err.message),
   });
 
+  //
+
+  const { mutate: editCabin, isLoading: isEditing } = useMutation({
+    mutationFn: ({newCabinData, id}) => createEditCabin(newCabinData, id), //distraction and pass the newCabinData and id
+    onSuccess: () => {
+      toast.success("Cabin updated successfully");
+      queryClient.invalidateQueries({
+        queryKey: ["cabins"],
+      });
+      reset();
+    },
+    onError: (err) => toast.error(err.message),
+  });
+
+  const isWorking = isCreating || isEditing;
 
   //use mutate function, isLoading state
   function onSubmit(data) {
+    if(isEditSession) editCabin()
     //data of the field that we regestered
-    mutate({...data, image:data.image[0]}); //we need to match the name of the field (id)
+    else createCabin({...data, image:data.image[0]}); //we need to match the name of the field (id)
   }
 
   function onError(errors){
@@ -65,7 +82,7 @@ function CreateCabinForm({cabinToEdit = {}}) {
 <FormRow label='Cabin name' error={errors?.name?.message}>
    <Input type="text" 
    id="name"
-   disabled = {isCreating}
+   disabled = {isWorking}
    {...register("name", {required: 'This field is required'
         })} />
 </FormRow>
@@ -99,12 +116,12 @@ function CreateCabinForm({cabinToEdit = {}}) {
         />
       </FormRow>
 
-      <FormRow label='Description' disabled = {isCreating} error={errors?.name?.message}>
+      <FormRow label='Description' disabled = {isWorking} error={errors?.name?.message}>
         <Textarea
           type="number"
           id="description"
           defaultValue=""
-          disabled = {isCreating}
+          disabled = {isWorking}
           {...register("description", {required: 'This field is required'})}
         />
       </FormRow>
@@ -119,7 +136,7 @@ function CreateCabinForm({cabinToEdit = {}}) {
         <Button variation="secondary" type="reset">
           Cancel
         </Button>
-        <Button disabled={isCreating}>
+        <Button disabled={isWorking}>
          {isEditSession ? 'Edit cabin' : 'Create cabin'} 
           </Button>
       </FormRow>

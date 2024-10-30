@@ -16,7 +16,7 @@ const { data, error } = await supabase
 }
 
 export async function createEditCabin(newCabin, id){ //id of a cabin that is being edeted
-  const hasImagePath = newCabin.image.startsWith(supabase); //check if the image is already uploaded
+  const hasImagePath = newCabin.image?.startsWith?.(supabase); //check if the image is already uploaded
 
   const imageName = hasImagePath ? newCabin.image : `${Math.random()}-${newCabin.image.name}`.replaceAll("/", "");
 
