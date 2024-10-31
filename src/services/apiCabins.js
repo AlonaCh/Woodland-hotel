@@ -16,6 +16,7 @@ const { data, error } = await supabase
 }
 
 export async function createEditCabin(newCabin, id){ //id of a cabin that is being edeted
+    console.log(newCabin, id)
   const hasImagePath = newCabin.image?.startsWith?.(supabase); //check if the image is already uploaded
 
   const imageName = hasImagePath ? newCabin.image : `${Math.random()}-${newCabin.image.name}`.replaceAll("/", "");
@@ -26,11 +27,10 @@ export async function createEditCabin(newCabin, id){ //id of a cabin that is bei
 let query = supabase.from('cabins');
 
 //A) Create
-if(!id) query.insert([{...newCabin, image: imagePath}]) //indicate image path to the image in the bucket
+if(!id) query = query.insert([{...newCabin, image: imagePath}]) //indicate image path to the image in the bucket
 
 //B) Edit
-if (id) 
-  query.update({...newCabin, image: imagePath})
+if (id) query = query.update({...newCabin, image: imagePath})
   .eq('id', id) //we need to specify the column that we want to update. id is eq to the id we pass in
   .select()
 

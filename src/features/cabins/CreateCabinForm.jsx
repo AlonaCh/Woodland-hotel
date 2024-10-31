@@ -1,5 +1,3 @@
-import styled from "styled-components";
-
 import Input from "../../ui/Input";
 import Form from "../../ui/Form";
 import Button from "../../ui/Button";
@@ -10,7 +8,8 @@ import { createEditCabin } from "../../services/apiCabins";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import FormRow from "../../ui/FormRow";
-import { is } from "date-fns/locale";
+
+
 
 
 
@@ -61,9 +60,11 @@ function CreateCabinForm({cabinToEdit = {}}) {
 
   //use mutate function, isLoading state
   function onSubmit(data) {
-    if(isEditSession) editCabin()
+    //check if the image is a file list or a string
+    const image = typeof data.image === 'string' ? data.image : data.image[0];
+    if(isEditSession) editCabin({newCabinData: {...data, image:image}, id: editId})
     //data of the field that we regestered
-    else createCabin({...data, image:data.image[0]}); //we need to match the name of the field (id)
+    else createCabin({...data, image:image}); //we need to match the name of the field (id)
   }
 
   function onError(errors){
