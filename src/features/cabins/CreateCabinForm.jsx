@@ -4,11 +4,9 @@ import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import { useForm } from "react-hook-form";
-import { createEditCabin } from "../../services/apiCabins";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import toast from "react-hot-toast";
 import FormRow from "../../ui/FormRow";
-
+import { useCreateCabin } from "../../cabins/useCreateCabin";
+import { useEditCabin } from "../../cabins/useEditCabin";
 
 
 
@@ -26,19 +24,9 @@ function CreateCabinForm({cabinToEdit = {}}) {
   ); //we recieve these functions from useForm hook. handleSubmit(onSubmit) is an event handler function
   const { errors } = formState;
 
-  //
+  const {createCabin, isCreating } = useCreateCabin();
 
-  const { mutate: editCabin, isLoading: isEditing } = useMutation({
-    mutationFn: ({newCabinData, id}) => createEditCabin(newCabinData, id), //distraction and pass the newCabinData and id
-    onSuccess: () => {
-      toast.success("Cabin updated successfully");
-      queryClient.invalidateQueries({
-        queryKey: ["cabins"],
-      });
-      reset();
-    },
-    onError: (err) => toast.error(err.message),
-  });
+  const {editCabin, isEditing} = useEditCabin();
 
   const isWorking = isCreating || isEditing;
 
@@ -46,9 +34,13 @@ function CreateCabinForm({cabinToEdit = {}}) {
   function onSubmit(data) {
     //check if the image is a file list or a string
     const image = typeof data.image === 'string' ? data.image : data.image[0];
-    if(isEditSession) editCabin({newCabinData: {...data, image:image}, id: editId})
+    if(isEditSession) editCabin({newCabinData: {...data, image:image}, id: editId},
+      {onSuccess: (data) => reset(),}
+    )
     //data of the field that we regestered
-    else createCabin({...data, image:image}); //we need to match the name of the field (id)
+    else createCabin({...data, image:image},
+      {onSuccess: (data) => reset(),}//reset the form after the cabin is created
+    ); //we need to match the name of the field (id)
   }
 
   function onError(errors){
