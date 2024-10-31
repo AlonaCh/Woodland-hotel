@@ -17,11 +17,11 @@ const { data, error } = await supabase
 
 export async function createEditCabin(newCabin, id){ //id of a cabin that is being edeted
     console.log(newCabin, id)
-  const hasImagePath = newCabin.image?.startsWith?.(supabase); //check if the image is already uploaded
+  const hasImagePath = newCabin.image?.startsWith?.(supabaseUrl); //check if the image is already uploaded
 
-  const imageName = hasImagePath ? newCabin.image : `${Math.random()}-${newCabin.image.name}`.replaceAll("/", "");
+  const imageName = `${Math.random()}-${newCabin.image.name}`.replaceAll("/", "");
 
-  const imagePath=`${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`
+  const imagePath = hasImagePath ? newCabin.image : `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`
 
 //1 Create/edit a new cabin
 let query = supabase.from('cabins');

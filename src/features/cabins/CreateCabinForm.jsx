@@ -117,7 +117,7 @@ function CreateCabinForm({cabinToEdit = {}}) {
         />
       </FormRow>
 
-      <FormRow label='Description' disabled = {isWorking} error={errors?.name?.message}>
+      <FormRow label='Description' error={errors?.name?.message}>
         <Textarea
           type="number"
           id="description"

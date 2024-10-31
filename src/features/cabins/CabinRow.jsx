@@ -74,7 +74,7 @@ const queryClient = useQueryClient();
       <Cabin>{name}</Cabin>
       <div>{maxCapacity} quests</div>
       <Price>{formatCurrency(regularPrice)}</Price>
-      <Discount>{formatCurrency(discount)}</Discount>
+      {discount ? <Discount>{formatCurrency(discount)}</Discount> : <span>&mdash;</span>}
       <div>
       <button onClick={()=>setShowForm((showForm) => !showForm)}>Edit</button>
       <button onClick={()=>mutate(cabinId)} disabled={isDeleting}>Delete</button>
