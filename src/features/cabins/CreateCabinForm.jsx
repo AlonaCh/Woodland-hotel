@@ -10,32 +10,33 @@ import { useEditCabin } from "../../cabins/useEditCabin";
 
 
 
-
 function CreateCabinForm({cabinToEdit = {}}) {
   const {id: editId, ...editValues} = cabinToEdit; // extracts the id from the cabinToEdit object (if it exists) and assigns it to editId
   // All other properties are grouped into editValues, which might include properties like name, price, description, etc., but without the id.
   
   //if we edit
   const isEditSession = Boolean(editId); //if editId is true, then isEditSession is true
-
+  
   const { register, handleSubmit, reset, getValues, formState } = useForm({
     defaultValues: isEditSession ? editValues : {},
   }
-  ); //we recieve these functions from useForm hook. handleSubmit(onSubmit) is an event handler function
-  const { errors } = formState;
+); //we recieve these functions from useForm hook. handleSubmit(onSubmit) is an event handler function
+const { errors } = formState;
 
-  const {createCabin, isCreating } = useCreateCabin();
+const {createCabin, isCreating } = useCreateCabin();
 
-  const {editCabin, isEditing} = useEditCabin();
+const {editCabin, isEditing} = useEditCabin();
 
-  const isWorking = isCreating || isEditing;
-
+const isWorking = isCreating || isEditing;
   //use mutate function, isLoading state
   function onSubmit(data) {
     //check if the image is a file list or a string
     const image = typeof data.image === 'string' ? data.image : data.image[0];
-    if(isEditSession) editCabin({newCabinData: {...data, image:image}, id: editId},
-      {onSuccess: (data) => reset(),}
+    if(isEditSession) editCabin({newCabinData: {...data, image}, id: editId},
+      {onSuccess: (data) => { 
+        console.log('Cabin updated successfully');
+        reset();
+      }}
     )
     //data of the field that we regestered
     else createCabin({...data, image:image},
