@@ -26,22 +26,6 @@ function CreateCabinForm({cabinToEdit = {}}) {
   ); //we recieve these functions from useForm hook. handleSubmit(onSubmit) is an event handler function
   const { errors } = formState;
 
-  //in case of mutation we want to invalidate the cabins query, for cabinTable component refetch cabins data
-  const queryClient = useQueryClient();
-
-  //mutate func if we want to mutate something
-  const { mutate: createCabin, isLoading: isCreating } = useMutation({
-    mutationFn: createEditCabin,
-    onSuccess: () => {
-      toast.success("Cabin created successfully");
-      queryClient.invalidateQueries({
-        queryKey: ["cabins"],
-      });
-      reset();
-    },
-    onError: (err) => toast.error(err.message),
-  });
-
   //
 
   const { mutate: editCabin, isLoading: isEditing } = useMutation({
