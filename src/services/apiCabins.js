@@ -42,6 +42,8 @@ const { data, error } = await query.select().single(); //we want to get the data
     throw new Error('Cabin could not be created');
   }
   //2 Upload the image
+if (hasImagePath) return data; //if the image is already uploaded, we don't need to upload it again
+
 const { error: storageError } = await supabase
   .storage
   .from('cabin-images')

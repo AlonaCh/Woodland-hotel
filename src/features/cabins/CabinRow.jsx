@@ -4,6 +4,10 @@ import PropTypes from 'prop-types';
 import CreateCabinForm from "./CreateCabinForm";
 import { useState } from "react";
 import { useDeleteCabin } from "../../cabins/useDeleteCabin";
+import { HiSquare2Stack } from "react-icons/hi2";
+import { IoPencil } from "react-icons/io5";
+import { FaRegTrashAlt } from "react-icons/fa";
+import { useCreateCabin } from "../../cabins/useCreateCabin";
 
 
 const TableRow = styled.div`
@@ -49,8 +53,16 @@ const Discount = styled.div`
 const CabinRow = ({cabin}) => {
   const [showForm, setShowForm] = useState(false)
   const {isDeleting, deleteCabin} = useDeleteCabin()
+  const {isCreating, createCabin} = useCreateCabin()
 
-const {id: cabinId, name, image, maxCapacity, regularPrice, discount} = cabin
+const {id: cabinId, name, image, maxCapacity, regularPrice, discount, description} = cabin
+
+ function handleDuplicate() {
+    createCabin({
+      name: `Copy of ${name}`,
+      image, maxCapacity, regularPrice, discount, description
+    })
+  }
   
   return (
     <>
@@ -61,22 +73,23 @@ const {id: cabinId, name, image, maxCapacity, regularPrice, discount} = cabin
       <Price>{formatCurrency(regularPrice)}</Price>
       {discount ? <Discount>{formatCurrency(discount)}</Discount> : <span>&mdash;</span>}
       <div>
-      <button onClick={()=>setShowForm((showForm) => !showForm)}>Edit</button>
-      <button onClick={()=>deleteCabin(cabinId)} disabled={isDeleting}>Delete</button> 
+        <button disabled={isCreating} onClick={()=>handleDuplicate()}><HiSquare2Stack/></button>
+      <button onClick={()=>setShowForm((showForm) => !showForm)}><IoPencil /></button>
+      <button onClick={()=>deleteCabin(cabinId)} disabled={isDeleting}><FaRegTrashAlt /></button> 
       </div>
     </TableRow>
           {showForm && <CreateCabinForm cabinToEdit={cabin}/>}
           </>
   )}
 // Add prop types validation
-CabinRow.propTypes = {
-  cabin: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    capacity: PropTypes.number.isRequired,
-    price: PropTypes.number.isRequired,
-    discount: PropTypes.number, // Optional, since not all cabins might have a discount
-  }).isRequired,
-};
+// CabinRow.propTypes = {
+//   cabin: PropTypes.shape({
+//     name: PropTypes.string.isRequired,
+//     image: PropTypes.string.isRequired,
+//     maxCapacity: PropTypes.number.isRequired,
+//     regularPrice: PropTypes.number.isRequired,
+//     discount: PropTypes.number, // Optional, since not all cabins might have a discount
+//   }).isRequired,
+// };
 
 export default CabinRow
