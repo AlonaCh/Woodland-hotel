@@ -1,15 +1,12 @@
-import { useQuery } from "@tanstack/react-query";
-import { getSettings } from "../../services/apiSettings";
+import { getSettings } from "../../services/apiSettings"
 
-export function useSettings() {
-  const {
-    isLoading,
-    error,
-    data: settings,
-  } = useQuery({
-    queryKey: ["settings"],
-    queryFn: getSettings,
-  });
+const useSettings = () => {
+const {isLoading, error, data: settings,} = useQuery({
+    queryKey: ['settings'],
+    queryFn: getSettings, //return a promise (async function)
+})
 
-  return { isLoading, error, settings };
+  return {isLoading, error, settings}
 }
+
+export default useSettings

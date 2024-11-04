@@ -19,12 +19,12 @@ function UpdateSettingsForm() {
 
   if (isLoading) return <Spinner />;
 
-  function handleUpdate(e, field) {
-    const { value } = e.target;
+  // function handleUpdate(e, field) {
+  //   const { value } = e.target;
 
-    if (!value) return;
-    updateSetting({ [field]: value });
-  }
+  //   if (!value) return;
+  //   updateSetting({ [field]: value });
+  // }
 
   return (
     <Form>
@@ -32,9 +32,7 @@ function UpdateSettingsForm() {
         <Input
           type="number"
           id="min-nights"
-          defaultValue={minBookingLength}
-          disabled={isUpdating}
-          onBlur={(e) => handleUpdate(e, "minBookingLength")}
+          
         />
       </FormRow>
 
@@ -42,9 +40,7 @@ function UpdateSettingsForm() {
         <Input
           type="number"
           id="max-nights"
-          defaultValue={maxBookingLength}
-          disabled={isUpdating}
-          onBlur={(e) => handleUpdate(e, "maxBookingLength")}
+       
         />
       </FormRow>
 
@@ -52,9 +48,7 @@ function UpdateSettingsForm() {
         <Input
           type="number"
           id="max-guests"
-          defaultValue={maxGuestsPerBooking}
-          disabled={isUpdating}
-          onBlur={(e) => handleUpdate(e, "maxGuestsPerBooking")}
+       
         />
       </FormRow>
 
@@ -62,9 +56,7 @@ function UpdateSettingsForm() {
         <Input
           type="number"
           id="breakfast-price"
-          defaultValue={breakfastPrice}
-          disabled={isUpdating}
-          onBlur={(e) => handleUpdate(e, "breakfastPrice")}
+        
         />
       </FormRow>
     </Form>
