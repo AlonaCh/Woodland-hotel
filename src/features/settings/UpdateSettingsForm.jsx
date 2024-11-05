@@ -42,7 +42,7 @@ function handleUpdate(e, field) {
         <Input
           type="number"
           id="max-nights"
-         defaultValue={minBookingLength}
+         defaultValue={ maxBookingLength}
            disabled={isEditing}
           onBlur={(e) => handleUpdate(e, 'minBookingLength')}
         />
@@ -52,7 +52,7 @@ function handleUpdate(e, field) {
         <Input
           type="number"
           id="max-guests"
-         defaultValue={minBookingLength}
+         defaultValue={maxGuestsPerBooking}
            disabled={isEditing}
           onBlur={(e) => handleUpdate(e, 'minBookingLength')}
         />
@@ -62,7 +62,7 @@ function handleUpdate(e, field) {
         <Input
           type="number"
           id="breakfast-price"
-          defaultValue={minBookingLength}
+          defaultValue={breakfastPrice}
             disabled={isEditing}
           onBlur={(e) => handleUpdate(e, 'minBookingLength')}
         />
