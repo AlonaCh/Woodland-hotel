@@ -2,7 +2,8 @@ import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 import { useSettings } from "./useSettings";
-// import Spinner from "../../ui/Spinner";
+import { useUpdateSetting } from "./useUpdateSetting";
+import Spinner from "../../ui/Spinner";
 
 // import { useUpdateSetting } from "./useUpdateSetting";
 
@@ -15,7 +16,15 @@ function UpdateSettingsForm() {
   } = {},
 } = useSettings();
 
+const {isEditing, updateSetting} = useUpdateSetting();
+
 if (isLoading) return <Spinner/>;
+
+function handleUpdate(e, field) {
+  const {value} = e.target;
+  if(!value) return;
+  updateSetting({[field] : value});
+}
 
   return (
     <Form>
@@ -24,6 +33,8 @@ if (isLoading) return <Spinner/>;
           type="number"
           id="min-nights"
           defaultValue={minBookingLength}
+          disabled={isEditing}
+          onBlur={(e) => handleUpdate(e, 'minBookingLength')}
         />
       </FormRow>
 
@@ -32,6 +43,8 @@ if (isLoading) return <Spinner/>;
           type="number"
           id="max-nights"
          defaultValue={minBookingLength}
+           disabled={isEditing}
+          onBlur={(e) => handleUpdate(e, 'minBookingLength')}
         />
       </FormRow>
 
@@ -40,6 +53,8 @@ if (isLoading) return <Spinner/>;
           type="number"
           id="max-guests"
          defaultValue={minBookingLength}
+           disabled={isEditing}
+          onBlur={(e) => handleUpdate(e, 'minBookingLength')}
         />
       </FormRow>
 
@@ -48,6 +63,8 @@ if (isLoading) return <Spinner/>;
           type="number"
           id="breakfast-price"
           defaultValue={minBookingLength}
+            disabled={isEditing}
+          onBlur={(e) => handleUpdate(e, 'minBookingLength')}
         />
       </FormRow>
     </Form>

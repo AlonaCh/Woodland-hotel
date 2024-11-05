@@ -6,7 +6,7 @@ import Textarea from "../../ui/Textarea";
 import { useForm } from "react-hook-form";
 import FormRow from "../../ui/FormRow";
 import { useCreateCabin } from "../../cabins/useCreateCabin";
-import { useEditCabin } from "../../cabins/useUpdateCabin";
+import { useUpdateCabin } from "../../cabins/useUpdateCabin";
 
 
 
@@ -25,7 +25,7 @@ const { errors } = formState;
 
 const {createCabin, isCreating } = useCreateCabin();
 
-const {editCabin, isEditing} = useEditCabin();
+const {editCabin, isEditing} = useUpdateCabin();
 
 const isWorking = isCreating || isEditing;
   //use mutate function, isLoading state
