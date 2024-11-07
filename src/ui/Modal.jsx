@@ -1,3 +1,4 @@
+import { RxCross1 } from "react-icons/rx";
 import styled from "styled-components";
 
 const StyledModal = styled.div`
@@ -49,9 +50,14 @@ const Button = styled.button`
   }
 `;
 
-const Modal = ({children}) => {
+const Modal = ({children, onClose}) => {
   return (
-    <StyledModal>{children}</StyledModal>
+    <Overlay>
+    <StyledModal>
+      <Button onClick={onClose}><RxCross1 /></Button>
+      <div>{children}</div>
+      </StyledModal>
+    </Overlay>
   )
 }
 
