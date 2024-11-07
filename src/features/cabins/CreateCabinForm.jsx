@@ -10,7 +10,7 @@ import { useUpdateCabin } from "../../cabins/useUpdateCabin";
 
 
 
-function CreateCabinForm({cabinToEdit = {}}) {
+function CreateCabinForm({cabinToEdit = {}, onCloseModal}) {
   const {id: editId, ...editValues} = cabinToEdit; // extracts the id from the cabinToEdit object (if it exists) and assigns it to editId
   // All other properties are grouped into editValues, which might include properties like name, price, description, etc., but without the id.
   
@@ -36,12 +36,14 @@ const isWorking = isCreating || isEditing;
       {onSuccess: (data) => { 
         console.log('Cabin updated successfully');
         reset();
+        onCloseModal?.()
       }}
     )
     //data of the field that we regestered
     else createCabin({...data, image:image},
       {onSuccess: (data) => reset(),}//reset the form after the cabin is created
     ); //we need to match the name of the field (id)
+    onCloseModal?.(); //if onCloseModal is defined, call it
   }
 
   function onError(errors){
@@ -111,7 +113,7 @@ const isWorking = isCreating || isEditing;
 
       <FormRow>
         {/* type is an HTML attribute! */}
-        <Button variation="secondary" type="reset">
+        <Button variation="secondary" type="reset" onClick={() => onCloseModal?.()}>
           Cancel
         </Button>
         <Button disabled={isWorking}>
