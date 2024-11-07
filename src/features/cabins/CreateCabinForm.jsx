@@ -51,7 +51,9 @@ const isWorking = isCreating || isEditing;
   }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit, onError)}>
+    // set type prop to modal
+    <Form onSubmit={handleSubmit(onSubmit, onError)}
+    type={onCloseModal ? 'modal' : 'regular'}>
       {/* <FormRow>
         <Label htmlFor="name">Cabin name</Label>
         <Input type="text" id="name" {...register("name", {required: 'This field is required'
