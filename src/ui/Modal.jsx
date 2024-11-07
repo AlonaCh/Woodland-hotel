@@ -1,3 +1,4 @@
+import { createPortal } from "react-dom";
 import { RxCross1 } from "react-icons/rx";
 import styled from "styled-components";
 
@@ -51,13 +52,16 @@ const Button = styled.button`
 `;
 
 const Modal = ({children, onClose}) => {
-  return (
+  return createPortal(
+    //First argument is the JSX element to render
     <Overlay>
     <StyledModal>
       <Button onClick={onClose}><RxCross1 /></Button>
       <div>{children}</div>
       </StyledModal>
-    </Overlay>
+    </Overlay>,
+    //Second argument is the DOM element where the portal will be rendered
+    document.body
   )
 }
 
