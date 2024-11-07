@@ -49,9 +49,9 @@ const Button = styled.button`
   }
 `;
 
-const Modal = () => {
+const Modal = ({children}) => {
   return (
-    <StyledModal>Modal</StyledModal>
+    <StyledModal>{children}</StyledModal>
   )
 }
 
