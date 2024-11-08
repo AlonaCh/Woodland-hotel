@@ -1,4 +1,3 @@
-import { cloneElement, createContext, useContext, useState } from "react";
 import { createPortal } from "react-dom";
 import { RxCross1 } from "react-icons/rx";
 import styled from "styled-components";
@@ -52,44 +51,12 @@ const Button = styled.button`
   }
 `;
 
-const ModalContext = createContext()
-
-// Modal Component with Provider
-function Modal({ children }) {
-  //here we will keep track of which is the currently open window
-
-  const [openName, setOpenName] = useState("");
-
- const close = () => setOpenName("");
-  const open = setOpenName;
-
-  return (
-    <ModalContext.Provider value={{ openName, close, open }}>
-      {children}
-    </ModalContext.Provider>
-  );
-}
-
-// Open Component to Trigger Modal
-function Open({children, opens: openWindowName}){
-const {open} = useContext(ModalContext)
-
-return cloneElement(children, {onClick: ()=>open(openWindowName)}); //new version of the children (Button) with the new props
-}
-
-// Window Component to Display Modal Content
-function Window({ children, name }) {
-  const { openName, close } = useContext(ModalContext);
-
-  
-  if (name !== openName) return null
-
-
+const Modal = ({children, onClose}) => {
   return createPortal(
     //First argument is the JSX element to render
     <Overlay>
     <StyledModal>
-      <Button onClick={close}><RxCross1 /></Button>
+      <Button onClick={onClose}><RxCross1 /></Button>
       <div>{children}</div>
       </StyledModal>
     </Overlay>,
@@ -98,11 +65,4 @@ function Window({ children, name }) {
   )
 }
 
-Modal.Open = Open;
-Modal.Window = Window;
-
-export default Modal;
-
-
-
- 
+export default Modal
