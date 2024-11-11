@@ -1,4 +1,4 @@
-import { cloneElement, createContext, useContext, useState } from "react";
+import { cloneElement, createContext, useContext, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { RxCross1 } from "react-icons/rx";
 import styled from "styled-components";
@@ -81,14 +81,26 @@ return cloneElement(children, {onClick: ()=>open(openWindowName)}); //new versio
 function Window({ children, name }) {
   const { openName, close } = useContext(ModalContext);
 
+  const ref = useRef()
+  
+  //Close the modal when clicking outside
+  useEffect(()=>{
+    function handleClickOutside(event){
+      if(ref.current && !ref.current.contains(event.target)){
+        console.log('click outside')
+       close() }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)}
+  }, [close])
   
   if (name !== openName) return null
-
 
   return createPortal(
     //First argument is the JSX element to render
     <Overlay>
-    <StyledModal>
+    <StyledModal ref={ref}>
       <Button onClick={close}><RxCross1 /></Button>
       <div>{children}</div>
       </StyledModal>
