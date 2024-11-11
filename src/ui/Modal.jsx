@@ -1,7 +1,8 @@
-import { cloneElement, createContext, useContext, useEffect, useRef, useState } from "react";
+import { cloneElement, createContext, useContext, useState } from "react";
 import { createPortal } from "react-dom";
 import { RxCross1 } from "react-icons/rx";
 import styled from "styled-components";
+import useCloseClickOutside from "../hooks/useCloseClickOutside";
 
 const StyledModal = styled.div`
   position: fixed;
@@ -81,19 +82,8 @@ return cloneElement(children, {onClick: ()=>open(openWindowName)}); //new versio
 function Window({ children, name }) {
   const { openName, close } = useContext(ModalContext);
 
-  const ref = useRef()
-  
-  //Close the modal when clicking outside
-  useEffect(()=>{
-    function handleClickOutside(event){
-      if(ref.current && !ref.current.contains(event.target)){
-        console.log('click outside')
-       close() }
-    }
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)}
-  }, [close])
+//Close the modal when clicking outside
+  const ref = useCloseClickOutside(close)
   
   if (name !== openName) return null
 
