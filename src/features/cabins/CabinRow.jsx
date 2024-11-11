@@ -1,13 +1,12 @@
 import styled from "styled-components";
 import {formatCurrency} from "../../utils/helpers";
-import PropTypes from 'prop-types';
 import CreateCabinForm from "./CreateCabinForm";
-import { useState } from "react";
 import { useDeleteCabin } from "../../cabins/useDeleteCabin";
 import { HiSquare2Stack } from "react-icons/hi2";
 import { IoPencil } from "react-icons/io5";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { useCreateCabin } from "../../cabins/useCreateCabin";
+import Modal from "../../ui/Modal";
 
 
 const TableRow = styled.div`
@@ -51,7 +50,6 @@ const Discount = styled.div`
 
 
 const CabinRow = ({cabin}) => {
-  const [showForm, setShowForm] = useState(false)
   const {isDeleting, deleteCabin} = useDeleteCabin()
   const {isCreating, createCabin} = useCreateCabin()
 
@@ -74,11 +72,20 @@ const {id: cabinId, name, image, maxCapacity, regularPrice, discount, descriptio
       {discount ? <Discount>{formatCurrency(discount)}</Discount> : <span>&mdash;</span>}
       <div>
         <button disabled={isCreating} onClick={()=>handleDuplicate()}><HiSquare2Stack/></button>
-      <button onClick={()=>setShowForm((showForm) => !showForm)}><IoPencil /></button>
+      
+<Modal>
+  <Modal.Open opens='edit'>
+     <button><IoPencil /></button>
+      </Modal.Open>
+    {/* Window open */}
+    <Modal.Window name='edit'>
+<CreateCabinForm cabinToEdit={cabin}/>
+</Modal.Window>
+     
       <button onClick={()=>deleteCabin(cabinId)} disabled={isDeleting}><FaRegTrashAlt /></button> 
+      </Modal>
       </div>
     </TableRow>
-          {showForm && <CreateCabinForm cabinToEdit={cabin}/>}
           </>
   )}
 // Add prop types validation
