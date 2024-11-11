@@ -92,7 +92,7 @@ function Window({ children, name }) {
     <Overlay>
     <StyledModal ref={ref}>
       <Button onClick={close}><RxCross1 /></Button>
-      <div>{children}</div>
+      <div>{cloneElement(children, {onCloseModal:close})}</div>
       </StyledModal>
     </Overlay>,
     //Second argument is the DOM element where the portal will be rendered

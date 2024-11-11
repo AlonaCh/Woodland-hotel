@@ -7,6 +7,7 @@ import { IoPencil } from "react-icons/io5";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { useCreateCabin } from "../../cabins/useCreateCabin";
 import Modal from "../../ui/Modal";
+import ConfirmDelete from "../../ui/ConfirmDelete";
 
 
 const TableRow = styled.div`
@@ -82,7 +83,15 @@ const {id: cabinId, name, image, maxCapacity, regularPrice, discount, descriptio
 <CreateCabinForm cabinToEdit={cabin}/>
 </Modal.Window>
      
-      <button onClick={()=>deleteCabin(cabinId)} disabled={isDeleting}><FaRegTrashAlt /></button> 
+     <Modal.Open>
+      <button><FaRegTrashAlt /></button> 
+      </Modal.Open>
+      <Modal.Window>
+        <ConfirmDelete resourceName='cabins'
+        disabled={isDeleting}
+        onConfirm={()=>deleteCabin(cabinId)}
+        />
+      </Modal.Window>
       </Modal>
       </div>
     </TableRow>
