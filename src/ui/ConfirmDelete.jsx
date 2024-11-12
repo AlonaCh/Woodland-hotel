@@ -20,7 +20,7 @@ const StyledConfirmDelete = styled.div`
   }
 `;
 
-function ConfirmDelete({ resourceName, onConfirm, disabled, onCloseModal, onCloseModal }) {
+function ConfirmDelete({ resourceName, onConfirm, disabled, onCloseModal }) {
   //receives onCloseModal because it is a child component on Modal
   return (
     <StyledConfirmDelete>
