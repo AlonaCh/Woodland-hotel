@@ -2,6 +2,7 @@ import Spinner from "../../ui/Spinner";
 import styled from "styled-components";
 import CabinRow from "./CabinRow";
 import { useCabins } from "../../cabins/useCabins";
+import Table from "../../ui/Table";
 
 
 const TableHeader = styled.header`

@@ -60,14 +60,25 @@ const Empty = styled.p`
   margin: 2.4rem;
 `;
 
+const TableContext = createContext();
+
 
 function Table ({columns, children}) {
-
+return <TableContext.Provider value={{columns}}>//from CabinTable
+<StyledTable role='table'>{children}</StyledTable>
+</TableContext.Provider>
 }
 
 //child components
 function Header({children}){
-
+  //give access to the columns through the useContext
+const {columns} = useContext(TableContext);
+return (
+  //  grid-template-columns: ${(props) => props.columns}; ; from CabinTable; we pass it to the context
+  <StyledHeader role='row' columns={columns}> 
+    {children}
+  </StyledHeader>
+)
 }
 
 function Row({children}){
