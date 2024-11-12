@@ -37,11 +37,16 @@ const CabinTable = () => {
         <div>Discount</div>
         <div>Book</div>
       </Table.Header>
-      {cabins.map((cabin) => (
-      <CabinRow cabin={cabin} key={cabin.id}>
-      </CabinRow>
 
+      {/* <Table.Body>
+      {cabins.map((cabin) => (
+      <CabinRow cabin={cabin} key={cabin.id} />
       ))}
+      </Table.Body> */}
+ <Table.body
+ data={cabins}
+ render={(cabin) => <CabinRow cabin={cabin} key={cabin.id}/>}
+ />
       </Table>
   )
 }

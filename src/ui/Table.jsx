@@ -37,9 +37,9 @@ const StyledRow = styled(CommonRow)`
   }
 `;
 
-// const StyledBody = styled.section`
-//   margin: 0.4rem 0;
-// `;
+const StyledBody = styled.section`
+  margin: 0.4rem 0;
+`;
 
 const Footer = styled.footer`
   background-color: var(--color-grey-50);
@@ -53,12 +53,12 @@ const Footer = styled.footer`
   }
 `;
 
-// const Empty = styled.p`
-//   font-size: 1.6rem;
-//   font-weight: 500;
-//   text-align: center;
-//   margin: 2.4rem;
-// `;
+const Empty = styled.p`
+  font-size: 1.6rem;
+  font-weight: 500;
+  text-align: center;
+  margin: 2.4rem;
+`;
 
 const TableContext = createContext();
 
@@ -89,14 +89,20 @@ return(
 )
 }
 
-// function Body({children}){
+function Body({data, render}){
+  if(data.length === 0){
+    return <Empty>There is no data to show</Empty>
+  }
 
-// }
+return <StyledBody>
+  {data.map(render)}
+</StyledBody>
+}
 
 //Define the context
 Table.Header = Header;
 Table.Row = Row;  
-// Table.Body = Body;
+Table.Body = Body;
 Table.Footer = Footer;
 
 export default Table;
