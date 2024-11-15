@@ -3,6 +3,8 @@
 // import { HiEllipsisVertical } from "react-icons/hi2";
 import styled from "styled-components";
 // import { useOutsideClick } from "../hooks/useOutsideClick";
+import { HiDotsVertical } from "react-icons/hi";
+import { useContext } from "react";
 
 const Menu = styled.div`
   display: flex;
@@ -65,26 +67,38 @@ const StyledButton = styled.button`
   }
 `;
 
-const MenusContext = createContext();
+const MenusContext = createContext(); //we are gonna store info about menu
 
 function Menus({children}){
 //keep track which on is opened id
 const [openId, setOpenId] = useState(null);
 //setter function
-
+const close = () => setOpenId(null);
+const open = setOpenId;
 
   return (
-    <MenusContext.Provider>
+    <MenusContext.Provider value={(openId, close, open)}>
       {children}
     </MenusContext.Provider>
   )
 }
 
-function Toggle({id}){}
+function Toggle({id}){
+const {openId, close, open} = useContext(MenusContext);
+  return <StyledToggle onClick={handleClick}>
+    <HiDotsVertical />
+  </StyledToggle>
+}
 
 function List({id}){}
 
-function Button({children}){}
+function Button({children}){
+  return (
+    <li>
+      <StyledButton>{children}</StyledButton>
+    </li>
+  )
+}
 
 Menus.Menu = Menu; // Menu is a styled component
 Menus.Toggle = Toggle;
