@@ -65,12 +65,30 @@ const StyledButton = styled.button`
   }
 `;
 
+const MenusContext = createContext();
+
 function Menus({children}){
+//keep track which on is opened id
+const [openId, setOpenId] = useState(null);
+//setter function
+
+
   return (
-    <div>
-{children}
-    </div>
+    <MenusContext.Provider>
+      {children}
+    </MenusContext.Provider>
   )
 }
+
+function Toggle({id}){}
+
+function List({id}){}
+
+function Button({children}){}
+
+Menus.Menu = Menu; // Menu is a styled component
+Menus.Toggle = Toggle;
+Menus.List = List;
+Menus.Button = Button;
 
 export default Menus;

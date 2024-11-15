@@ -97,8 +97,15 @@ const {id: cabinId, name, image, maxCapacity, regularPrice, discount, descriptio
       </Modal>
 
       <Menus.Menu>
-      
+      <Menus.Toggle id={cabinId}/>
+
+      <Menu.List id={cabinId}>
+        <Menu.Button>Duplicate</Menu.Button>
+         <Menu.Button>Edit</Menu.Button>
+          <Menu.Button>Delete</Menu.Button>
+      </Menu.List>
       </Menus.Menu>
+
       </div>
     </Table.Row>
           </>
