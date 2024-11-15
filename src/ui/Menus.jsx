@@ -4,7 +4,8 @@
 import styled from "styled-components";
 // import { useOutsideClick } from "../hooks/useOutsideClick";
 import { HiDotsVertical } from "react-icons/hi";
-import { useContext } from "react";
+import { createContext, useContext, useState } from "react";
+import { createPortal } from "react-dom";
 
 const Menu = styled.div`
   display: flex;
@@ -89,13 +90,21 @@ const {openId, close, open} = useContext(MenusContext);
 function handleClick(){
   openId === '' || openId !== id ? open(id) : close()
 }
-
   return <StyledToggle onClick={handleClick}>
     <HiDotsVertical />
   </StyledToggle>
 }
 
-function List({id}){}
+function List({id, children}){
+  const {openId} = useContext(MenusContext);
+
+  if(openId !== id) return null;
+
+  return createPortal(
+    <StyledList position={{x: 18, y: 18}}>{children}</StyledList>, 
+    document.body
+  )
+}
 
 function Button({children}){
   return (
