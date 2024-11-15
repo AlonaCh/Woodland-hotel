@@ -3,6 +3,7 @@ import styled from "styled-components";
 import CabinRow from "./CabinRow";
 import { useCabins } from "../../cabins/useCabins";
 import Table from "../../ui/Table";
+import Menus from "../../ui/Menus";
 
 
 const TableHeader = styled.header`
@@ -27,7 +28,8 @@ const CabinTable = () => {
   if (isLoading) return <Spinner/>
   
   return (
-    //we want to pass column definiton to this table
+    <Menus>
+    {/* //we want to pass column definiton to this table */}
     <Table columns='0.6fr 1.8fr 2.2fr 1fr 1fr 1fr'> 
       <Table.Header role='row'>
         <div>Image</div>
@@ -43,11 +45,12 @@ const CabinTable = () => {
       <CabinRow cabin={cabin} key={cabin.id} />
       ))}
       </Table.Body> */}
- <Table.body
+ <Table.Body
  data={cabins}
  render={(cabin) => <CabinRow cabin={cabin} key={cabin.id}/>}
  />
       </Table>
+      </Menus>
   )
 }
 
