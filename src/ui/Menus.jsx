@@ -85,6 +85,11 @@ const open = setOpenId;
 
 function Toggle({id}){
 const {openId, close, open} = useContext(MenusContext);
+
+function handleClick(){
+  openId === '' || openId !== id ? open(id) : close()
+}
+
   return <StyledToggle onClick={handleClick}>
     <HiDotsVertical />
   </StyledToggle>
