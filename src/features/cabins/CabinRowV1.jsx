@@ -74,43 +74,37 @@ const {id: cabinId, name, image, maxCapacity, regularPrice, discount, descriptio
       <Price>{formatCurrency(regularPrice)}</Price>
       {discount ? <Discount>{formatCurrency(discount)}</Discount> : <span>&mdash;</span>}
       <div>
+        <button disabled={isCreating} onClick={()=>handleDuplicate()}><HiSquare2Stack/></button>
       
 <Modal>
-
-<Menus.Menu>
-      <Menus.Toggle id={cabinId}/>
-
-      <Menus.List id={cabinId}>
-        <Menus.Button icon={<HiSquare2Stack/>} onClick={()=>handleDuplicate()}>Duplicate</Menus.Button>
-       
-{/* //these 2 buttons to trigger modal window to open */}
   <Modal.Open opens='edit'>
-     <Menus.Button icon={<IoPencil/>}>Edit</Menus.Button>
+     <button><IoPencil /></button>
       </Modal.Open>
-
-          <Modal.Open opens='delete'>
-        <Menus.Button icon={<FaRegTrashAlt/>}>Delete</Menus.Button>
-      </Modal.Open>
-
-      </Menus.List>
-     
-
     {/* Window open */}
     <Modal.Window name='edit'>
 <CreateCabinForm cabinToEdit={cabin}/>
 </Modal.Window>
      
- 
+     <Modal.Open opens='delete'>
+      <button><FaRegTrashAlt /></button> 
+      </Modal.Open>
       <Modal.Window name='delete'>
         <ConfirmDelete resourceName='cabins'
         disabled={isDeleting}
         onConfirm={()=>deleteCabin(cabinId)}
         />
       </Modal.Window>
-       </Menus.Menu>
       </Modal>
 
-      
+      <Menus.Menu>
+      <Menus.Toggle id={cabinId}/>
+
+      <Menus.List id={cabinId}>
+        <Menus.Button icon={<HiSquare2Stack/>} onClick={()=>handleDuplicate()}>Duplicate</Menus.Button>
+         <Menus.Button icon={<IoPencil/>}>Edit</Menus.Button>
+          <Menus.Button icon={<FaRegTrashAlt/>}>Delete</Menus.Button>
+      </Menus.List>
+      </Menus.Menu>
 
       </div>
     </Table.Row>
