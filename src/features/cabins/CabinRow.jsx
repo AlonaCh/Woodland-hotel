@@ -100,9 +100,9 @@ const {id: cabinId, name, image, maxCapacity, regularPrice, discount, descriptio
       <Menus.Toggle id={cabinId}/>
 
       <Menus.List id={cabinId}>
-        <Menus.Button>Duplicate</Menus.Button>
-         <Menus.Button>Edit</Menus.Button>
-          <Menus.Button>Delete</Menus.Button>
+        <Menus.Button icon={<HiSquare2Stack/>} onClick={()=>handleDuplicate()}>Duplicate</Menus.Button>
+         <Menus.Button icon={<IoPencil/>}>Edit</Menus.Button>
+          <Menus.Button icon={<FaRegTrashAlt/>}>Delete</Menus.Button>
       </Menus.List>
       </Menus.Menu>
 
