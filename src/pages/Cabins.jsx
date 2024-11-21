@@ -13,7 +13,6 @@ function Cabins() {
     <Row type="horizontal">
       <Heading as="h1">Cabins</Heading>
       <CabinTableOperations/>
-      <p>Filtering</p>
     </Row>
 
     <Row>

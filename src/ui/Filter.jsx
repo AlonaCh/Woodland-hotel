@@ -38,8 +38,11 @@ const FilterButton = styled.button`
 const Filter = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
+  //updates a URL search parameter when called
   const handleClick = (value) => {
-setSe
+searchParams.set('discount', value); //new search param
+setSearchParams(searchParams);
+
 }
 
   return (
