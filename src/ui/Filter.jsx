@@ -35,24 +35,26 @@ const FilterButton = styled.button`
   }
 `;
 
-const Filter = ({filterField, options}) => {
+const Filter = ({filteredField, options}) => {
   //options is array of values
   const [searchParams, setSearchParams] = useSearchParams();
   //to see if it is active, we need to get value from URL
-  const currentFilterValue = searchParams.get(filterField) || options[0]?.value
+  const currentFilterValue = searchParams.get(filteredField) || options[0]?.value
 
   //updates a URL search parameter when called
-  const handleClick = (value) => {
-searchParams.set(filterField, value); //new search param
+    function handleClick(value) {
+    searchParams.set(filteredField, value); //new search param
 setSearchParams(searchParams);
 
 }
 
   return (
     <StyledFilter>
-      {options.map((option)=>(
+     {
+     options.map((option) => (
         <FilterButton 
-        key={option.value} onClick={()=>handleClick(option.value)}
+        key={option.value}
+          onClick={() => handleClick(option.value)}
         active={option.value === currentFilterValue ? 'true' : undefined}>
           {option.label}
           </FilterButton>

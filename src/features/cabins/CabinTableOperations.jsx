@@ -10,6 +10,7 @@ const CabinTableOperations = () => {
             {value: 'withDiscount', label: 'With discount'},
             {value: 'noDiscount', label: 'No discount'}
         ]}/>
+
     </TableOperations>
   )
 }
