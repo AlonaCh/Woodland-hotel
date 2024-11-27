@@ -1,7 +1,8 @@
+import Select from "./Select"
 
 const Sort = ({options}) => {
   return (
-    <div>Sort</div>
+    <Select options={options} type='white'/>
   )
 }
 
