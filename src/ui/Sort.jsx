@@ -1,5 +1,5 @@
 
-const Sort = () => {
+const Sort = ({options}) => {
   return (
     <div>Sort</div>
   )
