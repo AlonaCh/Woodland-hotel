@@ -55,7 +55,8 @@ setSearchParams(searchParams);
         <FilterButton 
         key={option.value}
           onClick={() => handleClick(option.value)}
-        active={option.value === currentFilterValue ? 'true' : undefined}>
+        active={option.value === currentFilterValue ? 'true' : undefined}
+        disabled={option.value === currentFilterValue}>
           {option.label}
           </FilterButton>
       ))}
