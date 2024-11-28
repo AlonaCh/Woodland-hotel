@@ -13,6 +13,7 @@ const CabinTable = () => {
 
   if (isLoading) return <Spinner/>
 
+  //1) Filter cabins based on the discount query parameter
   const filterValue = searchParams.get('discount') || 'all';
 console.log(filterValue)
   let filteredCabins;
@@ -22,6 +23,12 @@ console.log(filterValue)
 
   if (filterValue === 'noDiscount') filteredCabins = cabins.filter((cabin) => cabin.discount === 0);
   
+  //2) Sort cabins based on the sort query parameter
+const sort = searchParams.get('sort') || 'name-asc';
+const [field, direction] = sort.split('-'); //splitting the string into array
+const modifier = direction === 'asc' ? 1: -1;
+const sortedCabins = filteredCabins.sort((a,b)=> (a[field] - b[field]) * modifier);
+
   return (
     <Menus>
     {/* //we want to pass column definiton to this table */}
