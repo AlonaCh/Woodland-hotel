@@ -49,7 +49,8 @@ const sortedCabins = filteredCabins.sort((a,b)=> (a[field] - b[field]) * modifie
       </Table.Body> */}
  <Table.Body
 //  data={cabins}
- data = {filteredCabins}
+//  data = {filteredCabins}
+ data = {sortedCabins}
  render={(cabin) => <CabinRow cabin={cabin} key={cabin.id}/>}
  />
       </Table>
