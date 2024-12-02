@@ -1,5 +1,5 @@
 // import styled from 'styled-components';
-// import BookingRow from './BookingRow';
+import BookingRow from './BookingRow';
 import Menus from '../../ui/Menus';
 import Table from '../../ui/Table';
 import Empty from '../../ui/Empty';
@@ -32,12 +32,12 @@ function BookingTable() {
           ))} */}
 
         {/* Render props! */}
-        {/* <Table.Body
+        <Table.Body
           data={bookings}
           render={(booking) => (
             <BookingRow key={booking.id} booking={booking} />
           )}
-        /> */}
+        />
 
       </Table>
     </Menus>
