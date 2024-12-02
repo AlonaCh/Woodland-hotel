@@ -1,11 +1,11 @@
-import { getToday } from "../utils/helpers";
+// import { getToday } from "../utils/helpers";
 import supabase from "./supabase";
 
 
 export async function getBookings() {
   const {data, error} = await supabase
-  .from(bookings)
-  .select('*');
+  .from('bookings')
+  .select('*, cabins(*), guests(*)'); //select data from foreign tables
 
   if(error){
     console.error(error);
