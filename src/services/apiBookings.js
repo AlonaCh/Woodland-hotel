@@ -5,8 +5,8 @@ import supabase from "./supabase";
 export async function getBookings() {
   const {data, error} = await supabase
   .from('bookings')
-  .select('id, created_at, startDate, endDate, numberNights, numberGuests, status, totalPrice, cabins(name), guests(fullName, email)'); //select data from foreign tables
-
+  .select('id, created_at, startDate, endDate, numberNights, numberGuests,status, totalPrice, cabins(name), guests(fullName, email)'); //select data from foreign tables
+  
   if(error){
     console.error(error);
     throw new Error('Bookings could not get loaded');
