@@ -19,7 +19,12 @@ export async function getBookings({filter, sort}) {
   .from('bookings')
   .select('id, created_at, startDate, endDate, numberNights, numberGuests,status, totalPrice, cabins(name), guests(fullName, email)'); //select data from foreign tables
   
+  //Filter
+ 
+  if (filter !== null) query = query.eq(filter.field, filter.value);
+
   const {data, error} = await query;
+   console.log('Filter:', filter);
 
   if(error){
     console.error(error);

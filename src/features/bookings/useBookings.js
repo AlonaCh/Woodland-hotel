@@ -18,7 +18,7 @@ const {
     data: bookings,
     error,
 } = useQuery({
-queryKey: ['bookings'],
+queryKey: ['bookings', filter], //whenever filter is changes query will refetch the data. It is similar to dependancy array in useEffect hook
 queryFn: ()=>getBookings({filter}),
 });
 return {isLoading, error, bookings};
