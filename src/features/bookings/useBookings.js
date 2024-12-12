@@ -11,10 +11,7 @@ export function useBookings() {
 const filterValue = searchParams.get('status');
 const filter = !filterValue || filterValue === 'all' ? null : 
 {field: 'status', value: filterValue};
-console.log('Filter Value:', filterValue);
-console.log('Filter passed to getBookings:', filter);
-
-
+// {field: 'totalPrice', value: 5000, method: 'gte'};
 
 
 const {
