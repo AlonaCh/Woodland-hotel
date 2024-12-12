@@ -13,14 +13,22 @@ const filter = !filterValue || filterValue === 'all' ? null :
 {field: 'status', value: filterValue};
 // {field: 'totalPrice', value: 5000, method: 'gte'};
 
+// Sort
+//to get the data, pass to getBookings func
+
+const sortRaw = searchParams.get('sort') || 'startDate-desc';
+
+//split it into an array
+const [field, direction] = sortRaw.split('-');
+const sort = {field, direction};
 
 const {
     isLoading,
     data: bookings,
     error,
 } = useQuery({
-queryKey: ['bookings', filter], //whenever filter is changes query will refetch the data. It is similar to dependancy array in useEffect hook
-queryFn: ()=>getBookings({filter}),
+queryKey: ['bookings', filter, sort], //whenever filter is changes query will refetch the data. It is similar to dependancy array in useEffect hook
+queryFn: ()=>getBookings({filter, sort}),
 });
 return {isLoading, error, bookings};
 }
