@@ -5,6 +5,7 @@ import Table from '../../ui/Table';
 import Empty from '../../ui/Empty';
 import { useBookings } from './useBookings'; //named export
 import Spinner from '../../ui/Spinner';
+import Pagination from '../../ui/Pagination';
 
 
 function BookingTable() {
@@ -39,6 +40,9 @@ function BookingTable() {
           )}
         />
 
+      <Table.Footer>
+        <Pagination/>
+      </Table.Footer>
       </Table>
     </Menus>
   );
