@@ -66,10 +66,10 @@ const [searchParams, setSearchParams] = useSearchParams();
 
 const currentPage = searchParams.get('page') ? 1 : Number(searchParams.get('page'))
   
-const pagecount = Math.ceil(count / PAGE_SIZE)
+const pageCount = Math.ceil(count / PAGE_SIZE)
 
 const nextPage = () => {
-
+const next = currentPage === pageCount ? currentPage : currentPage + 1; 
   }
 
   const previousPage = () => {
