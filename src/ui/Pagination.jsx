@@ -70,28 +70,34 @@ const pageCount = Math.ceil(count / PAGE_SIZE)
 
 const nextPage = () => {
 const next = currentPage === pageCount ? currentPage : currentPage + 1; 
-  }
-
-  searchParams.set('page', next);
+searchParams.set('page', next);
   setSearchParams(searchParams);
+  }
 
   const previousPage = () => {
   const previous = currentPage === 1 ? currentPage : currentPage - 1;
-  }
-  searchParams.set('page', previous);
+   searchParams.set('page', previous);
   setSearchParams(searchParams);
-  
+  }
+
+if (pageCount <= 1) return null;
+
   return (
     <StyledPagination>
-     <p>
-      <span>1</span> to <span>10</span> of <span>{count}</span> results
-      </p> 
+     <P>
+      <span>{(currentPage - 1) * PAGE_SIZE + 1}</span> to <span>
+        {currentPage === pageCount ? count
+        : currentPage * PAGE_SIZE}
+        </span> of <span>{count}</span> results
+      </P> 
 
       <Buttons>
-        <PaginationButton onClick={nextPage}>
+        <PaginationButton onClick={previousPage}
+        disabled={currentPage === 1}>
           <HiChevronLeft/> <span>Previous</span>
            </PaginationButton>
-            <PaginationButton onClick={previousPage}>
+            <PaginationButton onClick={nextPage}
+            disabled={currentPage === pageCount}>
            <span>Next</span>
            <HiChevronRight/>
         </PaginationButton>
