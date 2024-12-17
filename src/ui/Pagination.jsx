@@ -72,10 +72,15 @@ const nextPage = () => {
 const next = currentPage === pageCount ? currentPage : currentPage + 1; 
   }
 
+  searchParams.set('page', next);
+  setSearchParams(searchParams);
+
   const previousPage = () => {
-
+  const previous = currentPage === 1 ? currentPage : currentPage - 1;
   }
-
+  searchParams.set('page', previous);
+  setSearchParams(searchParams);
+  
   return (
     <StyledPagination>
      <p>
