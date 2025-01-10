@@ -22,13 +22,27 @@ const sortRaw = searchParams.get('sort') || 'startDate-desc';
 const [field, direction] = sortRaw.split('-');
 const sort = {field, direction};
 
-const {
-    isLoading,
-    data: bookings,
-    error,
-} = useQuery({
-queryKey: ['bookings', filter, sort], //whenever filter is changes query will refetch the data. It is similar to dependancy array in useEffect hook
-queryFn: ()=>getBookings({filter, sort}),
-});
-return {isLoading, error, bookings};
+// const {
+//     isLoading,
+//     data: {data: bookings, count},
+//     error,
+// } = useQuery({
+// queryKey: ['bookings', filter, sort], //whenever filter is changes query will refetch the data. It is similar to dependancy array in useEffect hook
+// queryFn: ()=>getBookings({filter, sort}),
+// });
+// return {isLoading, error, bookings, count};
+// }
+
+
+  // Fetch data with react-query
+  const { isLoading, data, error } = useQuery({
+    queryKey: ["bookings", filter, sort],
+    queryFn: () => getBookings({ filter, sort }),
+  });
+
+  // Safely extract data
+  const bookings = data?.data || [];
+  const count = data?.count || 0;
+
+  return { isLoading, error, bookings, count };
 }

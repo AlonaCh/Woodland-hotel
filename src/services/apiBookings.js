@@ -17,7 +17,9 @@ import supabase from "./supabase";
 export async function getBookings({filter, sort}) {
    let query = supabase
   .from('bookings')
-  .select('id, created_at, startDate, endDate, numberNights, numberGuests,status, totalPrice, cabins(name), guests(fullName, email)'); //select data from foreign tables
+  .select('id, created_at, startDate, endDate, numberNights, numberGuests,status, totalPrice, cabins(name), guests(fullName, email)',
+    {count: 'exact'}
+  ); //select data from foreign tables. {count: 'exact'} when we do not need the query of entire results.
   
   //Filter
  
@@ -27,16 +29,16 @@ export async function getBookings({filter, sort}) {
   //Sort
   if (sort)
     query = query.order(sort.field, {ascending: sort.direction === 'asc'});
-  
 
-  const {data, error} = await query;
+
+  const {data, error, count} = await query;
    console.log('Filter:', filter);
 
   if(error){
     console.error(error);
     throw new Error('Bookings could not get loaded');
   }
-  return data;
+  return { data, count};
 }
 
 export async function getBooking(id) {
