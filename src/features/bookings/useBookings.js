@@ -22,6 +22,8 @@ const sortRaw = searchParams.get('sort') || 'startDate-desc';
 const [field, direction] = sortRaw.split('-');
 const sort = {field, direction};
 
+//Pagination
+const page = !searchParams.get('page') ? 1 : Number(searchParams.get('page'))
 // const {
 //     isLoading,
 //     data: {data: bookings, count},
@@ -36,8 +38,8 @@ const sort = {field, direction};
 
   // Fetch data with react-query
   const { isLoading, data, error } = useQuery({
-    queryKey: ["bookings", filter, sort],
-    queryFn: () => getBookings({ filter, sort }),
+    queryKey: ["bookings", filter, sort, page],
+    queryFn: () => getBookings({ filter, sort, page }),
   });
 
   // Safely extract data
