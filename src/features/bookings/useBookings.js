@@ -1,9 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getBookings } from "../../services/apiBookings";
 import { useSearchParams } from "react-router-dom";
+import { PAGE_SIZE } from "../../utils/constants";
 
 
 export function useBookings() {
+    //query client hook
+    const queryClient = useQueryClient();
+
     //here we can read the filtered value from the URL. Then pass it into the getBookings func to filter the bookings
     const [searchParams] = useSearchParams();
 
@@ -45,6 +49,22 @@ const page = !searchParams.get('page') ? 1 : Number(searchParams.get('page'))
   // Safely extract data
   const bookings = data?.data || [];
   const count = data?.count || 0;
+
+  //Pre/fetching data
+  //we need to prefetch next page data when the current page is loaded
+  const pageCount = Math.ceil(count / PAGE_SIZE);
+
+  if(page < pageCount)
+  queryClient.prefetchQuery({
+    queryKey: ["bookings", filter, sort, page + 1],
+    queryFn: () => getBookings({ filter, sort, page: page +1 }),
+  });
+
+  if(page > 1)
+     queryClient.prefetchQuery({
+    queryKey: ["bookings", filter, sort, page - 1],
+    queryFn: () => getBookings({ filter, sort, page: page -1 }),
+  });
 
   return { isLoading, error, bookings, count };
 }
