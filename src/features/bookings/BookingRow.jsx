@@ -19,6 +19,8 @@ import { formatCurrency } from '../../utils/helpers';
 import { formatDistanceFromNow } from '../../utils/helpers';
 // import { useCheckout } from 'features/check-in-out/useCheckout';
 import { format, isToday } from 'date-fns';
+import { HiEye } from 'react-icons/hi';
+import Menus from '../../ui/Menus';
 
 // v1
 // const TableRow = styled.div`
@@ -62,7 +64,7 @@ const Amount = styled.div`
 
 function BookingRow({
   booking: {
-    // id: bookingId,
+    id: bookingId,
     // created_at,
     startDate,
     endDate,
@@ -113,6 +115,14 @@ function BookingRow({
 
       <Amount>{formatCurrency(totalPrice)}</Amount>
 
+            <Menus.Menu>
+              <Menus.Toggle id={bookingId}/>
+              <Menus.List id={bookingId}>
+              <Menus.Button icon={<HiEye/>}>
+                See details
+              </Menus.Button>
+              </Menus.List>
+            </Menus.Menu>
       
     </Table.Row>
   );
