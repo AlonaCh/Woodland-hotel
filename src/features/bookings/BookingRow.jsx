@@ -21,6 +21,7 @@ import { formatDistanceFromNow } from '../../utils/helpers';
 import { format, isToday } from 'date-fns';
 import { HiEye } from 'react-icons/hi';
 import Menus from '../../ui/Menus';
+import { useNavigate } from 'react-router-dom';
 
 // v1
 // const TableRow = styled.div`
@@ -76,12 +77,8 @@ function BookingRow({
     cabins: { name: cabinName },
   },
 }) {
-  // const { mutate: deleteBooking, isLoading: isDeleting } = useDeleteBooking();
-  // const { mutate: checkout, isLoading: isCheckingOut } = useCheckout();
-
-  // const navigate = useNavigate();
-
   // We will not allow editing at this point, as it's too complex for bookings... People just need to delete a booking and create a new one
+const navigate = useNavigate();
 
   const statusToTagName = {
     unconfirmed: 'blue',
@@ -118,7 +115,7 @@ function BookingRow({
             <Menus.Menu>
               <Menus.Toggle id={bookingId}/>
               <Menus.List id={bookingId}>
-              <Menus.Button icon={<HiEye/>}>
+              <Menus.Button icon={<HiEye/>} onClick={()=>navigate(`/bookings/${bookingId}`)}>
                 See details
               </Menus.Button>
               </Menus.List>

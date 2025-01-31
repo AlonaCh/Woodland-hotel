@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Spinner from 'ui/Spinner';
@@ -12,11 +12,12 @@ import Modal from 'ui/Modal';
 import ConfirmDelete from 'ui/ConfirmDelete';
 
 import { useBooking } from 'features/bookings/useBooking';
-import { useDeleteBooking } from './useDeleteBooking';
+// import { useDeleteBooking } from './useDeleteBooking';
 import { useMoveBack } from 'hooks/useMoveBack';
-import { useCheckout } from 'features/check-in-out/useCheckout';
+// import { useCheckout } from 'features/check-in-out/useCheckout';
 import ButtonText from 'ui/ButtonText';
-import Empty from 'ui/Empty';
+// import { is } from 'date-fns/locale';
+// import Empty from 'ui/Empty';
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -25,15 +26,11 @@ const HeadingGroup = styled.div`
 `;
 
 function BookingDetail() {
-  const { booking } = useBooking();
-  const { mutate: deleteBooking, isLoading: isDeleting } = useDeleteBooking();
-  const { mutate: checkout, isLoading: isCheckingOut } = useCheckout();
-
+  const { booking, isLoading } = useBooking();
   const moveBack = useMoveBack();
-  const navigate = useNavigate();
 
-  // if (isLoading) return <Spinner />;
-  // if (!booking) return <Empty resource='booking' />;
+  if(isLoading) return <Spinner />;
+  const {id: bookingId, status} = booking;
 
   const statusToTagName = {
     unconfirmed: 'blue',
@@ -41,14 +38,13 @@ function BookingDetail() {
     'checked-out': 'silver',
   };
 
-  const { id: bookingId, status } = booking;
 
   // We return a fragment so that these elements fit into the page's layout
   return (
     <>
       <Row type='horizontal'>
         <HeadingGroup>
-          <Heading type='h1'>Booking #{bookingId}</Heading>
+          <Heading type='h1'>Booking {bookingId}</Heading>
           <Tag type={statusToTagName[status]}>{status.replace('-', ' ')}</Tag>
         </HeadingGroup>
         <ButtonText onClick={moveBack}>&larr; Back</ButtonText>
@@ -58,7 +54,7 @@ function BookingDetail() {
 
       <ButtonGroup>
         {status === 'unconfirmed' && (
-          <Button onClick={() => navigate(`/checkin/${bookingId}`)}>
+          <Button >
             Check in
           </Button>
         )}
